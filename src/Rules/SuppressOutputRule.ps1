@@ -18,39 +18,42 @@ function Invoke-SuppressOutputRule {
         $node -is [System.Management.Automation.Language.CastExpressionAst]
     }, $true) | ForEach-Object {
         $node = $_
+        $finding = $null
         if ($node -is [System.Management.Automation.Language.CommandAst]) {
             $commandName = $node.GetCommandName()
             if ($commandName -eq 'Out-Null') {
-                $findings += [PSScriptAnalyzer.RuleRecord]::new(
-                    "SuppressOutputRule",
-                    $node.Extent,
-                    "Consider assigning output to `$null` for better performance instead of piping to Out-Null.",
-                    "Warning",
-                    "PSAvoidUsingCmdletOutput"
-                )
+                $finding = @{
+                    RuleName = "SuppressOutputRule"
+                    Extent = $node.Extent.Text
+                    Message = "Consider assigning output to `$null` for better performance instead of piping to Out-Null."
+                    Severity = "Warning"
+                    Recommendation = "PSAvoidUsingCmdletOutput"
+                }
             }
         } elseif ($node -is [System.Management.Automation.Language.RedirectionAst] -and
-                $node.Right.Extent.Text -eq '$null') {
-            $findings += [PSScriptAnalyzer.RuleRecord]::new(
-                "SuppressOutputRule",
-                $node.Extent,
-                "Consider assigning output to `$null` for better performance instead of redirecting to `$null`.",
-                "Warning",
-                "PSAvoidUsingCmdletOutput"
-            )
+                  $node.Right.Extent.Text -eq '$null') {
+            $finding = @{
+                RuleName = "SuppressOutputRule"
+                Extent = $node.Extent.Text
+                Message = "Consider assigning output to `$null` for better performance instead of redirecting to `$null`."
+                Severity = "Warning"
+                Recommendation = "PSAvoidUsingCmdletOutput"
+            }
         } elseif ($node -is [System.Management.Automation.Language.CastExpressionAst] -and
-                $node.StaticType -eq [void]) {
-            $findings += [PSScriptAnalyzer.RuleRecord]::new(
-                "SuppressOutputRule",
-                $node.Extent,
-                "Consider assigning output to `$null` for better performance instead of casting to [void].",
-                "Warning",
-                "PSAvoidUsingCmdletOutput"
-            )
+                  $node.StaticType -eq [void]) {
+            $finding = @{
+                RuleName = "SuppressOutputRule"
+                Extent = $node.Extent.Text
+                Message = "Consider assigning output to `$null` for better performance instead of casting to [void]."
+                Severity = "Warning"
+                Recommendation = "PSAvoidUsingCmdletOutput"
+            }
+        }
+
+        if ($finding) {
+            $findings += $finding
         }
     }
 
     return $findings
 }
-
-Export-ModuleMember -Function Invoke-SuppressOutputRule

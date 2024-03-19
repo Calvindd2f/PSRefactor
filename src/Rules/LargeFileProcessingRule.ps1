@@ -12,22 +12,20 @@ function Invoke-LargeFileProcessingRule {
 
     $findings = @()
     $cmdletNames = @('Get-Content', 'Set-Content', 'Import-Csv', 'Export-Csv')
-    $ast | ForEach-Object {
+    $Ast | ForEach-Object {
         if ($_ -is [System.Management.Automation.Language.CommandAst]) {
             $commandName = $_.GetCommandName()
             if ($commandName -and $cmdletNames -contains $commandName) {
-                $findings += [PSScriptAnalyzer.RuleRecord]::new(
-                    "LargeFileProcessingRule",
-                    $_.Extent,
-                    "For large files, consider replacing `$commandName` with direct .NET API calls like `[System.IO.File]::ReadAllLines` or `[System.IO.File]::WriteAllLines` for better performance.",
-                    "Warning",
-                    "PSAvoidSlowCmdletsForLargeFiles"
-                )
+                $findings += @{
+                    RuleName = "LargeFileProcessingRule"
+                    Extent = $_.Extent.Text
+                    Message = "For large files, consider replacing `$commandName` with direct .NET API calls like `[System.IO.File]::ReadAllLines` or `[System.IO.File]::WriteAllLines` for better performance."
+                    Severity = "Warning"
+                    Recommendation = "PSAvoidSlowCmdletsForLargeFiles"
+                }
             }
         }
     }
 
     return $findings
 }
-
-Export-ModuleMember -Function Invoke-LargeFileProcessingRule

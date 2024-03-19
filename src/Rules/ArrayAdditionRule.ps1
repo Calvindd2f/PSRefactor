@@ -18,19 +18,17 @@ function Invoke-ArrayAdditionRule {
         $node.Operator -eq [System.Management.Automation.Language.TokenKind]::PlusEquals
     }, $true) | ForEach-Object {
         $variableName = $_.Left.VariablePath.UserPath
-        # Ensure we're dealing with a variable and it's not $null (though checking against $null might not be strictly necessary in this context)
+        # Ensure we're dealing with a variable and it's not $null
         if ($variableName -and $variableName -ne '$null') {
-            $findings += [PSScriptAnalyzer.RuleRecord]::new(
-                "ArrayAdditionRule",
-                $_.Extent,
-                "Consider using a List[T] and .Add(..) method instead of `+=` for better performance.",
-                "Warning",
-                "PSUseListAddInsteadOfArrayPlusEquals"
-            )
+            $findings += @{
+                RuleName = "ArrayAdditionRule"
+                Extent = $_.Extent.Text
+                Message = "Consider using a List[T] and .Add(..) method instead of `+=` for better performance."
+                Severity = "Warning"
+                Recommendation = "PSUseListAddInsteadOfArrayPlusEquals"
+            }
         }
     }
 
     return $findings
 }
-
-Export-ModuleMember -Function Invoke-ArrayAdditionRule

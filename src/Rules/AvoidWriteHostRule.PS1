@@ -11,21 +11,19 @@ function Invoke-AvoidWriteHostRule {
     )
 
     $findings = @()
-    $ast.FindAll({
+    $Ast.FindAll({
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -and
         $node.GetCommandName() -eq 'Write-Host'
     }, $true) | ForEach-Object {
-        $findings += [PSScriptAnalyzer.RuleRecord]::new(
-            "AvoidWriteHostRule",
-            $_.Extent,
-            "Consider replacing `Write-Host` with `[System.Console]::WriteLine()` for better performance and flexibility.",
-            "Warning",
-            "PSAvoidUsingWriteHost"
-        )
+        $findings += @{
+            RuleName = "AvoidWriteHostRule"
+            Extent = $_.Extent.Text
+            Message = "Consider replacing `Write-Host` with `[System.Console]::WriteLine()` for better performance and flexibility."
+            Severity = "Warning"
+            Recommendation = "PSAvoidUsingWriteHost"
+        }
     }
 
     return $findings
 }
-
-Export-ModuleMember -Function Invoke-AvoidWriteHostRule

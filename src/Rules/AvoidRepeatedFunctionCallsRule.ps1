@@ -13,7 +13,7 @@ function Invoke-AvoidRepeatedFunctionCallsRule {
     $findings = @()
     $functionCallNames = @{}
 
-    $ast.FindAll({
+    $Ast.FindAll({
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]
     }, $true) | ForEach-Object {
@@ -25,19 +25,17 @@ function Invoke-AvoidRepeatedFunctionCallsRule {
         }
     }
 
-    $functionCallNames.GetEnumerator() | ForEach-Object {
-        if ($_.Value -gt 1) {
-            $findings += [PSScriptAnalyzer.RuleRecord]::new(
-                "AvoidRepeatedFunctionCallsRule",
-                $Ast.Extent,
-                "Detected repeated calls to function `$_`. Consider optimizing by reusing results or refactoring.",
-                "Warning",
-                "PSAvoidRepeatedFunctionCalls"
-            )
+    foreach ($functionCall in $functionCallNames.GetEnumerator()) {
+        if ($functionCall.Value -gt 1) {
+            $findings += @{
+                RuleName = "AvoidRepeatedFunctionCallsRule"
+                Extent = $Ast.Extent.Text
+                Message = "Detected repeated calls to function `$(functionCall.Name)`. Consider optimizing by reusing results or refactoring."
+                Severity = "Warning"
+                Recommendation = "PSAvoidRepeatedFunctionCalls"
+            }
         }
     }
 
     return $findings
 }
-
-Export-ModuleMember -Function Invoke-AvoidRepeatedFunctionCallsRule
