@@ -51,7 +51,7 @@ Copyright = '(c) Calvin Bergin. All rights reserved.'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-requiredModules = @(PSScriptAnalyzer)
+requiredModules = @("PSScriptAnalyzer")
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
