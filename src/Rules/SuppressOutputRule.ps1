@@ -15,7 +15,7 @@ function Invoke-SuppressOutputRule {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -or
         $node -is [System.Management.Automation.Language.RedirectionAst] -or
-        $node -is [System.Management.Automation.Language.CastExpressionAst]
+        $node -is [System.Management.Automation.Language.TypeExpressionAst]
     }, $true) | ForEach-Object {
         $node = $_
         $finding = $null
@@ -39,7 +39,7 @@ function Invoke-SuppressOutputRule {
                 Severity = "Warning"
                 Recommendation = "PSAvoidUsingCmdletOutput"
             }
-        } elseif ($node -is [System.Management.Automation.Language.CastExpressionAst] -and
+        } elseif ($node -is [System.Management.Automation.Language.TypeExpressionAst] -and
                   $node.StaticType -eq [void]) {
             $finding = @{
                 RuleName = "SuppressOutputRule"
