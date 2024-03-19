@@ -5,7 +5,7 @@ Describe "SuppressOutputRule Tests" {
 Get-Process | Out-Null
 Get-Date
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'SuppressOutputRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'SuppressOutputRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'SuppressOutputRule'
         }
@@ -17,7 +17,7 @@ Get-Date
 Get-Process | Out-Null
 $Date = Get-Date
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'SuppressOutputRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'SuppressOutputRule'
             $violations.Count | Should -Be 0
         }
     }

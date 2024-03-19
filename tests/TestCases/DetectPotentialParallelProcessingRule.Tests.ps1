@@ -6,7 +6,7 @@ Describe "DetectPotentialParallelProcessingRule Tests" {
     Start-Sleep -Seconds 1
 }
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'DetectPotentialParallelProcessingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'DetectPotentialParallelProcessingRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'DetectPotentialParallelProcessingRule'
         }
@@ -19,7 +19,7 @@ Describe "DetectPotentialParallelProcessingRule Tests" {
     Start-Sleep -Seconds 1
 } -ThrottleLimit 10
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'DetectPotentialParallelProcessingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'DetectPotentialParallelProcessingRule'
             $violations.Count | Should -Be 0
         }
     }

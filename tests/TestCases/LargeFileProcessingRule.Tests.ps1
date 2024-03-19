@@ -4,7 +4,7 @@ Describe "LargeFileProcessingRule Tests" {
             $scriptContent = @"
 Get-Content 'largefile.txt'
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'LargeFileProcessingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'LargeFileProcessingRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'LargeFileProcessingRule'
         }
@@ -13,7 +13,7 @@ Get-Content 'largefile.txt'
             $scriptContent = @"
 Set-Content 'largefile.txt' -Value $content
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'LargeFileProcessingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'LargeFileProcessingRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'LargeFileProcessingRule'
         }
@@ -25,7 +25,7 @@ Set-Content 'largefile.txt' -Value $content
 [System.IO.File]::ReadAllLines('largefile.txt')
 [System.IO.File]::WriteAllLines('largefile.txt', $content)
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'LargeFileProcessingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'LargeFileProcessingRule'
             $violations.Count | Should -Be 0
         }
     }

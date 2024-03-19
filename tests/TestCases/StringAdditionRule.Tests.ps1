@@ -5,7 +5,7 @@ Describe "StringAdditionRule Tests" {
 $name = "John"
 $greeting = "Hello, " + $name + "!"
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'StringAdditionRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'StringAdditionRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'StringAdditionRule'
         }
@@ -17,7 +17,7 @@ $greeting = "Hello, " + $name + "!"
 $parts = @("Hello, ", "John", "!")
 $greeting = $parts -join ''
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'StringAdditionRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'StringAdditionRule'
             $violations.Count | Should -Be 0
         }
     }

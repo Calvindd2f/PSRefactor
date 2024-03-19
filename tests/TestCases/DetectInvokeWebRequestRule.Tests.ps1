@@ -4,7 +4,7 @@ Describe "DetectInvokeWebRequestRule Tests" {
             $scriptContent = @"
 Invoke-WebRequest -Uri 'https://api.example.com/data' -Method Get
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'DetectInvokeWebRequestRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'DetectInvokeWebRequestRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'DetectInvokeWebRequestRule'
         }
@@ -13,7 +13,7 @@ Invoke-WebRequest -Uri 'https://api.example.com/data' -Method Get
             $scriptContent = @"
 Invoke-RestMethod -Uri 'https://api.example.com/data' -Method Get
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'DetectInvokeWebRequestRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'DetectInvokeWebRequestRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'DetectInvokeWebRequestRule'
         }
@@ -25,7 +25,7 @@ Invoke-RestMethod -Uri 'https://api.example.com/data' -Method Get
 $request = [System.Net.HttpWebRequest]::Create('https://api.example.com/data')
 $request.Method = 'GET'
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'DetectInvokeWebRequestRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'DetectInvokeWebRequestRule'
             $violations.Count | Should -Be 0
         }
     }

@@ -4,7 +4,7 @@ Describe "AvoidWriteHostRule Tests" {
             $scriptContent = @"
 Write-Host "Hello, World!"
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'AvoidWriteHostRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'AvoidWriteHostRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'AvoidWriteHostRule'
         }
@@ -15,7 +15,7 @@ Write-Host "Hello, World!"
             $scriptContent = @"
 [System.Console]::WriteLine("Hello, World!")
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'AvoidWriteHostRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'AvoidWriteHostRule'
             $violations.Count | Should -Be 0
         }
     }

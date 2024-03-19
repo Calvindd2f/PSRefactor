@@ -5,7 +5,7 @@ Describe "ArrayAdditionRule Tests" {
 $array = @()
 1..10 | ForEach-Object { $array += $_ }
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'ArrayAdditionRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'ArrayAdditionRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'ArrayAdditionRule'
         }
@@ -17,7 +17,7 @@ $array = @()
 $list = New-Object System.Collections.Generic.List[object]
 1..10 | ForEach-Object { $list.Add($_) }
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'ArrayAdditionRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'ArrayAdditionRule'
             $violations.Count | Should -Be 0
         }
     }

@@ -5,7 +5,7 @@ Describe "AvoidCmdletPipelineWrappingRule Tests" {
 $result = Get-Process | Where-Object { $_.CPU -gt 100 }
 $result | Sort-Object CPU
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'AvoidCmdletPipelineWrappingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'AvoidCmdletPipelineWrappingRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'AvoidCmdletPipelineWrappingRule'
         }
@@ -16,7 +16,7 @@ $result | Sort-Object CPU
             $scriptContent = @"
 Get-Process | Where-Object { $_.CPU -gt 100 } | Sort-Object CPU
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'AvoidCmdletPipelineWrappingRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'AvoidCmdletPipelineWrappingRule'
             $violations.Count | Should -Be 0
         }
     }

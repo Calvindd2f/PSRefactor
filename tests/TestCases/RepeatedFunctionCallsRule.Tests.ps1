@@ -9,7 +9,7 @@ for ($i = 0; $i -lt 10; $i++) {
     $data = Get-Data
 }
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'AvoidRepeatedFunctionCallsRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'AvoidRepeatedFunctionCallsRule'
             $violations.Count | Should -BeGreaterThan 0
             $violations.RuleName | Should -Contain 'AvoidRepeatedFunctionCallsRule'
         }
@@ -26,7 +26,7 @@ for ($i = 0; $i -lt 10; $i++) {
     # Use $data without calling Get-Data again
 }
 "@            
-            $violations = Invoke-ScriptAnalyzer -ScriptDefinition $scriptContent -IncludeRule 'AvoidRepeatedFunctionCallsRule'
+            $violations = Invoke-PerformanceRefactoring -ScriptDefinition $scriptContent -IncludeRule 'AvoidRepeatedFunctionCallsRule'
             $violations.Count | Should -Be 0
         }
     }
