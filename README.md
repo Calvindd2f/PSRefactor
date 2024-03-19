@@ -51,4 +51,24 @@ PowerShellModule/
 
 ```
 
+### Structure
+This module will load and register all the custom rules you've created for `PSScriptAnalyzer` to use. Each rule will be encapsulated in its own script file, which you've already developed. The module file will import these scripts and expose their functionalities as part of the module.
+
+### Structure of `Module.psm1`
+Your `Module.psm1` will:
+
+1. Define a module manifest that outlines module metadata, dependencies, and exported members.
+2. Load all custom rule scripts
+3. Register custom rules with PSScriptAnalyzer (if applicable, depending on how you plan to integrate with PSScriptAnalyzer).
+
+
+# Steps to Compile the Module
++ Import-Module `Module.psm1`
++ Try analyzing a script with `Invoke-ScriptAnalyzer` cmdlet to see if your custom rules are applied.
+
+This setup provides a structured way to integrate custom rules into your PowerShell scripting environment, enhancing code quality and maintainability through static analysis with PSScriptAnalyzer.
+
+
+
+
 
