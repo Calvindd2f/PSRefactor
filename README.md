@@ -69,6 +69,8 @@ Your `Module.psm1` will:
 This setup provides a structured way to integrate custom rules into your PowerShell scripting environment, enhancing code quality and maintainability through static analysis with PSScriptAnalyzer.
 
 
+--------------------------------------------------------------------------------
 
+## Notice:
 
-
+### C# version of module is not advised. It is not maintained and was more proof of concept. The major issue was AST and a look of guess work.

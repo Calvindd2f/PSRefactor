@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "AU4QYmmOnTMgkkJVO7mKvEdcNdqx/5RbZI57BnZy9F2sCuNFYir6mlQrmQ3nWfL1J5qP6BbtI12sIt8O6jj0Ag==",
+  "dgSpecHash": "ix99sbeV4U1LExADcULoYlVSfg+bJlX5udzPhdKREoMgbuj0QIM9Jve2O/V+uKdh3YGl+rlpUJLlFSbq4hxhPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\c\\Documents\\Powershell-Refactor\\binsrc\\binsrc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\c\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\c\\.nuget\\packages\\microsoft.powershell.sdk\\7.4.1\\microsoft.powershell.sdk.7.4.1.nupkg.sha512",
     "C:\\Users\\c\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\c\\.nuget\\packages\\powershellstandard.library\\5.1.0-preview-06\\powershellstandard.library.5.1.0-preview-06.nupkg.sha512"
   ],
