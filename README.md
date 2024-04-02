@@ -34,7 +34,8 @@ PowerShellModule/
 │       ├── LargeFileProcessingRule.ps1
 │       ├── AvoidWriteHostRule.ps1
 │       ├── RepeatedFunctionCallsRule.ps1
-│       └── AvoidCmdletPipelineWrappingRule.ps1
+│       ├── AvoidCmdletPipelineWrappingRule.ps1
+│       └── IsNullOrEmpty.ps1
 │
 ├── tests/
 │   ├── TestCases/ - Directory containing test scripts for each custom rule.
@@ -44,7 +45,8 @@ PowerShellModule/
 │   │   ├── LargeFileProcessingRule.Tests.ps1
 │   │   ├── AvoidWriteHostRule.Tests.ps1
 │   │   ├── RepeatedFunctionCallsRule.Tests.ps1
-│   │   └── AvoidCmdletPipelineWrappingRule.Tests.ps1
+│   │   ├── AvoidCmdletPipelineWrappingRule.Tests.ps1
+│   |   └── IsNullOrEmpty.Tests.ps1
 │   └── RunTests.ps1 - Script to run all tests and report findings.
 │
 └── README.md - Documentation on module usage and development guidelines.
